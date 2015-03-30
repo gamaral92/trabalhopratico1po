@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package trabalhopratico1po;
 
 /**
@@ -17,6 +16,16 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        double[][] A = {{1, 3},{3, 4},{3, 1}};
+        double[][] B = {{8},{19},{7}};
+        double[] C = {50, 25};
+        
+        Problema dieta = new Problema(2, 3);
+        dieta.setA(A);
+        dieta.setB(B);
+        dieta.setC(C);
+        
+        System.out.println("");
     }
     
 }
