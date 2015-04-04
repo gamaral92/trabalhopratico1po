@@ -5,6 +5,8 @@
  */
 package trabalhopratico1po;
 
+import java.util.Arrays;
+
 /**
  *
  * @author gabrielamaral
@@ -28,10 +30,9 @@ public class Main {
         dieta.setA(A);
         dieta.setB(B);
         dieta.setC(C);
-
-        double[] X = dieta.getXInicial();
         
-        System.out.println(dieta.search());
+
+        System.out.println(Arrays.toString(dieta.bestCost()));
     }
 
 }
