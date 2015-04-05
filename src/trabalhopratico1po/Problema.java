@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package trabalhopratico1po;
 
 import java.util.ArrayList;
@@ -13,7 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- *
+ * Primeiro trabalho prático de Pesquisa Operacional
  * @author gabrielamaral
  */
 public class Problema {
@@ -21,83 +16,44 @@ public class Problema {
     private double[][] A;
     private double[][] B;
     private double[] C;
-    private double[] X;
-    private int variaveis;
-    private int restricoes;
+    private final double[] X;
+    private final int variaveis;
+    private final int restricoes;
     private final double radiano = 0.0174532925;
-
-    ;
 
     public Problema(int variaveis, int restricoes) {
         this.variaveis = variaveis;
         this.restricoes = restricoes;
-        this.A = new double[restricoes][variaveis];
-        this.B = new double[restricoes][1];
-        this.C = new double[variaveis];
-        this.X = new double[variaveis];
-    }
-
-    public double[][] getA() {
-        return A;
+        this.A = new double[this.restricoes][this.variaveis];
+        this.B = new double[this.restricoes][1];
+        this.C = new double[this.variaveis];
+        this.X = new double[this.variaveis];
     }
 
     public void setA(double[][] A) {
         this.A = A;
     }
 
-    public double[][] getB() {
-        return B;
-    }
-
     public void setB(double[][] B) {
         this.B = B;
-    }
-
-    public double[] getC() {
-        return C;
     }
 
     public void setC(double[] C) {
         this.C = C;
     }
 
-    public double[] getX() {
-        return X;
-    }
-
-    public void setX(double[] X) {
-        this.X = X;
-    }
-
-    public int getVariaveis() {
-        return variaveis;
-    }
-
-    public void setVariaveis(int variaveis) {
-        this.variaveis = variaveis;
-    }
-
-    public int getRestricoes() {
-        return restricoes;
-    }
-
-    public void setRestricoes(int restricoes) {
-        this.restricoes = restricoes;
-    }
-
-    public double[] setPInitial() {
+    private void setPontoViavel() {
         for (int i = 0; i < X.length; i++) {
             X[i] = 0.0;
         }
         while (!checarRestricoes(X)) {
             for (int i = 0; i < X.length; i++) {
-                X[i] += 10.0;
+                X[i] += 5.0;
             }
         }
-        return X;
     }
 
-    public boolean checarRestricoes(double[] X) {
+    private boolean checarRestricoes(double[] X) {
         for (int i = 0; i < A.length; i++) {
             double result = 0.0;
             for (int j = 0; j < A[i].length; j++) {
@@ -110,12 +66,12 @@ public class Problema {
         return true;
     }
 
-    public double[] bestCost() {
-        setPInitial();
+    public double[] melhorCusto() {
+        setPontoViavel();
         double raio = 1.0;
         double erro = 0.00001;
         while (raio > erro) {
-            double[] P = search(raio);
+            double[] P = procurarAteARestricao(raio);
             if (checarRestricoes(P)) {
                 this.X[0] = P[0];
                 this.X[1] = P[1];
@@ -124,18 +80,16 @@ public class Problema {
             }
         }
         raio = 1.0;
-        search2(raio);
-        return this.X;
+        return procurarNaRestricao(raio);
     }
 
-    private void search2(double raio) {
+    private double[] procurarNaRestricao(double raio) {
         double grauMin = 0.0;
         double grauMax = 360.0;
-        double grauIncr = 0.05;
-        double menor;
+        double grauIncr = 0.01;
+        double erro = 0.00001;
         double[] P = new double[variaveis];
-        while (true) {
-            menor = Double.MAX_VALUE;
+        while (raio > erro) {
             HashMap<Double, Double> map = new HashMap<>();
             while (grauMin <= grauMax) {
                 P[0] = (this.X[0] + Math.sin(grauMin * radiano) * raio);
@@ -149,15 +103,21 @@ public class Problema {
                 }
                 grauMin += grauIncr;
             }
-            List<Double> sortedCollection = new ArrayList<Double>(map.values());
+            List<Double> sortedCollection = new ArrayList<>(map.values());
             Collections.sort(sortedCollection);
-            double grau = searchGrau(sortedCollection.get(0), map);
-            P[0] = (this.X[0] + Math.sin(grau * radiano) * raio);
-            P[1] = (this.X[1] + Math.cos(grau * radiano) * raio);
+            try {
+                double grau = searchGrau(sortedCollection.get(0), map);
+                this.X[0] += Math.sin(grau * radiano) * raio;
+                this.X[1] += Math.cos(grau * radiano) * raio;
+            } catch (IndexOutOfBoundsException exception) {
+                raio /= 2.0;
+            }
+            grauMin = 0.0;
         }
+        return this.X;
     }
 
-    private double[] search(double raio) {
+    private double[] procurarAteARestricao(double raio) {
         double grauMin = 0.0;
         double grauMax = 360.0;
         double grauIncr = 45.0;
@@ -172,10 +132,9 @@ public class Problema {
                     menor = result;
                 }
                 map.put(grauMin, result);
-                //System.out.println((int) grauMin + "º - " + (this.X[0] + Math.sin(grauMin * radiano) * raio) + ", " + (this.X[1] + Math.cos(grauMin * radiano) * raio) + " = " + result);
                 grauMin += grauIncr;
             }
-            List<Double> sortedCollection = new ArrayList<Double>(map.values());
+            List<Double> sortedCollection = new ArrayList<>(map.values());
             Collections.sort(sortedCollection);
             grauMin = searchGrau(sortedCollection.get(1), map);
             grauMax = searchGrau(sortedCollection.get(2), map);
