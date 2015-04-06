@@ -59,7 +59,7 @@ public class Problema {
             for (int j = 0; j < A[i].length; j++) {
                 result += A[i][j] * X[j];
             }
-            if (result <= B[i][0]) {
+            if (result < B[i][0]) {
                 return false;
             }
         }
