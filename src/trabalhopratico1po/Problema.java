@@ -259,9 +259,6 @@ public class Problema {
             while (grauMin <= grauMax) {
                 P[0] = (this.X[0] + Math.sin(grauMin * radiano) * raio);
                 P[1] = (this.X[1] + Math.cos(grauMin * radiano) * raio);
-                if(P[0] > 3.72 && P[0] < 3.74 && P[1] > 2.33 && P[1] < 2.335){
-                    System.out.println("");
-                }
                 if (checarRestricoesMax(P)) {
                     double result = (P[0] * C[0]) + (P[1] * C[1]);
                     double cost = (this.X[0] * C[0]) + (this.X[1] * C[1]);
