@@ -4,7 +4,7 @@ package trabalhopratico1po;
  * Primeiro trabalho prático de Pesquisa Operacional
  * @author gabrielamaral
  */
-public class Main {
+public class SegundoProblema {
 
     /**
      * @param args the command line arguments
@@ -24,7 +24,7 @@ public class Main {
         dieta.setB(B);
         dieta.setC(C);
         
-        double[] X = dieta.melhorCusto();
+        double[] X = dieta.minimizar();
         System.out.println("(x,y) = (" + X[0] + ", " + X[1] + ")");
         double custo = (X[0] * C[0]) + (X[1] * C[1]);
         System.out.println("Custo = " + custo);
@@ -33,7 +33,7 @@ public class Main {
         
         double[] C1 = {300, 500};
         dieta.setC(C1);
-        X = dieta.melhorCusto();
+        X = dieta.minimizar();
         System.out.println("(x,y) = (" + X[0] + ", " + X[1] + ")");
         custo = (X[0] * C1[0]) + (X[1] * C1[1]);
         System.out.println("Custo = " + custo);
