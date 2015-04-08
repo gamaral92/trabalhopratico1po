@@ -36,7 +36,6 @@ public class Problema {
         return X;
     }
     
-
     public void setA(double[][] A) {
         this.A = A;
     }
