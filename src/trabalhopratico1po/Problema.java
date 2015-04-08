@@ -1,7 +1,6 @@
 package trabalhopratico1po;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -32,6 +31,11 @@ public class Problema {
         this.C = new double[this.variaveis];
         this.X = new double[this.variaveis];
     }
+
+    public double[] getX() {
+        return X;
+    }
+    
 
     public void setA(double[][] A) {
         this.A = A;
