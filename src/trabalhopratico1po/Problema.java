@@ -11,6 +11,7 @@ import java.util.Objects;
 
 /**
  * Primeiro trabalho prático de Pesquisa Operacional
+ *
  * @author gabrielamaral
  */
 public class Problema {
@@ -44,6 +45,9 @@ public class Problema {
         this.C = C;
     }
 
+    /**
+     * Primeiro ponto viável na busca
+     */
     private void setPontoViavelMin() {
         for (int i = 0; i < X.length; i++) {
             X[i] = 0.0;
@@ -54,7 +58,10 @@ public class Problema {
             }
         }
     }
-    
+
+    /**
+     * Primeiro ponto viável na busca
+     */
     private void setPontoViavelMax() {
         for (int i = 0; i < X.length; i++) {
             X[i] = 0.0;
@@ -66,6 +73,12 @@ public class Problema {
         }
     }
 
+    /**
+     * Checa as restrições na minimização
+     *
+     * @param X Ponto (x,y)
+     * @return True - se está na região viável False - caso contrário
+     */
     private boolean checarRestricoesMin(double[] X) {
         for (int i = 0; i < A.length; i++) {
             double result = 0.0;
@@ -78,7 +91,13 @@ public class Problema {
         }
         return true;
     }
-    
+
+    /**
+     * Checa as restrições na maximização
+     *
+     * @param X Ponto (x,y)
+     * @return True - se está na região viável False - caso contrário
+     */
     private boolean checarRestricoesMax(double[] X) {
         for (int i = 0; i < A.length; i++) {
             double result = 0.0;
@@ -92,6 +111,11 @@ public class Problema {
         return true;
     }
 
+    /**
+     * Função objetivo é a minimização
+     *
+     * @return Melhor custo
+     */
     public double[] minimizar() {
         setPontoViavelMin();
         double raio = 1.0;
@@ -108,7 +132,12 @@ public class Problema {
         raio = 1.0;
         return procurarNaRestricaoMin(raio);
     }
-    
+
+    /**
+     * Função objetivo é a maximização
+     *
+     * @return Melhor custo
+     */
     public double[] maximizar() {
         setPontoViavelMax();
         double raio = 1.0;
@@ -126,6 +155,12 @@ public class Problema {
         return procurarNaRestricaoMax(raio);
     }
 
+    /**
+     * Busca o melhor valor em direção a restrição na minimização
+     *
+     * @param raio
+     * @return P = (x,y)
+     */
     private double[] procurarNaRestricaoMin(double raio) {
         double grauMin = 0.0;
         double grauMax = 360.0;
@@ -160,6 +195,12 @@ public class Problema {
         return this.X;
     }
 
+    /**
+     * Busca o melhor valor na minimização
+     *
+     * @param raio
+     * @return P = (x,y)
+     */
     private double[] procurarAteARestricaoMin(double raio) {
         double grauMin = 0.0;
         double grauMax = 360.0;
@@ -203,6 +244,12 @@ public class Problema {
         return -1;
     }
 
+    /**
+     * Busca o melhor valor em direção a restrição na minimização
+     *
+     * @param raio
+     * @return P = (x,y)
+     */
     private double[] procurarAteARestricaoMax(double raio) {
         double grauMin = 0.0;
         double grauMax = 360.0;
@@ -222,12 +269,11 @@ public class Problema {
             }
             List<Double> sortedCollection = new ArrayList<>(map.values());
             Collections.sort(sortedCollection, new Comparator<Double>() {
-
                 @Override
                 public int compare(Double o1, Double o2) {
-                    if(o1.doubleValue() > o2.doubleValue()){
+                    if (o1.doubleValue() > o2.doubleValue()) {
                         return -1;
-                    } else if(o1.doubleValue() < o2.doubleValue()){
+                    } else if (o1.doubleValue() < o2.doubleValue()) {
                         return 1;
                     } else {
                         return 0;
@@ -248,6 +294,12 @@ public class Problema {
         return P;
     }
 
+    /**
+     * Busca o melhor valor na maximização
+     *
+     * @param raio
+     * @return P = (x,y)
+     */
     private double[] procurarNaRestricaoMax(double raio) {
         double grauMin = 0.0;
         double grauMax = 360.0;
@@ -270,12 +322,11 @@ public class Problema {
             }
             List<Double> sortedCollection = new ArrayList<>(map.values());
             Collections.sort(sortedCollection, new Comparator<Double>() {
-
                 @Override
                 public int compare(Double o1, Double o2) {
-                    if(o1.doubleValue() > o2.doubleValue()){
+                    if (o1.doubleValue() > o2.doubleValue()) {
                         return -1;
-                    } else if(o1.doubleValue() < o2.doubleValue()){
+                    } else if (o1.doubleValue() < o2.doubleValue()) {
                         return 1;
                     } else {
                         return 0;
