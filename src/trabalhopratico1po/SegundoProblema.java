@@ -20,12 +20,12 @@ public class SegundoProblema {
                         {7}};
         double[] C = {50, 25};
 
-        Problema dieta = new Problema(2, 3);
-        dieta.setA(A);
-        dieta.setB(B);
-        dieta.setC(C);
+        Problema problema = new Problema(2, 3);
+        problema.setA(A);
+        problema.setB(B);
+        problema.setC(C);
         
-        double[] X = dieta.minimizar();
+        double[] X = problema.minimizar();
         DecimalFormat decimalFormat = new DecimalFormat("0.0000");
         System.out.println("P(x,y) = (" + decimalFormat.format(X[0]) + ", " + decimalFormat.format(X[1]) + ")");
         double custo = (X[0] * C[0]) + (X[1] * C[1]);
@@ -34,8 +34,8 @@ public class SegundoProblema {
         System.out.println("-------------------------------------");
         
         double[] C1 = {300, 500};
-        dieta.setC(C1);
-        X = dieta.minimizar();
+        problema.setC(C1);
+        X = problema.minimizar();
         System.out.println("P(x,y) = (" + decimalFormat.format(X[0]) + ", " + decimalFormat.format(X[1]) + ")");
         custo = (X[0] * C[0]) + (X[1] * C[1]);
         System.out.println("Custo = " + decimalFormat.format(custo));
